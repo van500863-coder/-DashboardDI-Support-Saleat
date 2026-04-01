@@ -14,8 +14,8 @@
     <style>
         /* ================= CSS រចនាបថ និង Theme Variables ================= */
         :root {
-            --primary-bg: #0f172a;    
-            --sidebar-bg: #1e293b;    
+            --primary-bg: #0f172a;  
+            --sidebar-bg: #1e293b;  
             --card-bg: #1e293b;       
             --text-main: #f8fafc;     
             --text-muted: #94a3b8;    
@@ -83,12 +83,12 @@
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         /* ផ្នែកខាងលើ (Header) */
-        .header { margin-bottom: 30px; border-bottom: 1px solid var(--border-color); padding-bottom: 15px;}
+        .header { margin-bottom: 25px; border-bottom: 1px solid var(--border-color); padding-bottom: 15px;}
         .header h1 { margin: 0; font-size: 26px; font-weight: 700; color: var(--text-main); }
         .header p { color: var(--text-muted); margin: 5px 0 0 0; font-size: 14px; }
 
         /* កាតបង្ហាញទិន្នន័យ (Stats Cards) */
-        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 30px; }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 25px; }
         .stat-card {
             background: var(--card-bg); padding: 24px; border-radius: 16px; border: 1px solid var(--border-color);
             box-shadow: 0 4px 6px rgba(0,0,0,0.1); position: relative; overflow: hidden; transition: background-color 0.3s ease, border-color 0.3s ease;
@@ -100,6 +100,21 @@
         .stat-card:nth-child(4)::before { background-color: #f59e0b; }
         .stat-card h3 { margin: 0 0 10px 0; color: var(--text-muted); font-size: 14px; font-weight: normal; }
         .stat-card .value { font-size: 32px; font-weight: bold; margin: 0; color: var(--text-main); }
+
+        /* ================= ផ្នែក Filter (ថ្មីទំនើប) ================= */
+        .filter-container {
+            display: flex; gap: 15px; margin-bottom: 20px; align-items: flex-end; flex-wrap: wrap;
+            background: var(--card-bg); padding: 15px 20px; border-radius: 12px; border: 1px solid var(--border-color);
+        }
+        .filter-box { flex: 1; min-width: 150px; }
+        .filter-box label { display: block; font-size: 12px; color: var(--text-muted); margin-bottom: 6px; font-weight: bold;}
+        
+        .form-control { 
+            width: 100%; padding: 10px 12px; border-radius: 8px; border: 1px solid var(--border-color); 
+            background: var(--primary-bg); color: var(--text-main); font-family: inherit; font-size: 14px;
+            box-sizing: border-box; outline: none; transition: border 0.2s; color-scheme: dark;
+        }
+        .form-control:focus { border-color: var(--accent-blue); }
 
         /* តារាង (Data Table) */
         .table-container { background: var(--card-bg); border-radius: 16px; border: 1px solid var(--border-color); overflow-x: auto; transition: background-color 0.3s ease, border-color 0.3s ease;}
@@ -114,6 +129,18 @@
         .status.approved { background-color: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); }
         .status.pending { background-color: rgba(245, 158, 11, 0.2); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); }
         .status.rejected { background-color: rgba(239, 68, 68, 0.2); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3); }
+
+        /* សញ្ញាព្រមានអ្នកសុំច្បាប់ច្រើន (Warning Badge) */
+        .warning-badge {
+            background-color: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.4);
+            font-size: 11px; padding: 2px 6px; border-radius: 10px; margin-left: 8px; font-weight: bold;
+            display: inline-flex; align-items: center; gap: 3px; animation: pulse 2s infinite; cursor: help;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
+            50% { transform: scale(1.05); box-shadow: 0 0 0 5px rgba(239, 68, 68, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+        }
 
         /* ប៊ូតុងសកម្មភាព */
         .action-btn { background: none; border: none; cursor: pointer; font-family: inherit; font-size: 13px; font-weight: bold; padding: 6px 10px; border-radius: 6px; transition: all 0.2s; margin-right: 5px;}
@@ -156,12 +183,6 @@
         .form-group { margin-bottom: 15px; }
         .form-group.full-width { grid-column: span 2; }
         .form-group label { display: block; margin-bottom: 8px; color: var(--text-muted); font-size: 13px; font-weight: bold;}
-        .form-control { 
-            width: 100%; padding: 10px 12px; border-radius: 8px; border: 1px solid var(--border-color); 
-            background: var(--primary-bg); color: var(--text-main); font-family: inherit; font-size: 14px;
-            box-sizing: border-box; outline: none; transition: border 0.2s;
-        }
-        .form-control:focus { border-color: var(--accent-blue); }
         
         .modal-actions { display: flex; justify-content: flex-end; gap: 12px; margin-top: 25px; }
         .btn-cancel { background: transparent; border: 1px solid var(--border-color); color: var(--text-muted); padding: 10px 20px; border-radius: 8px; cursor: pointer; font-family: inherit; font-weight: bold;}
@@ -198,7 +219,27 @@
                 <div class="stat-card"><h3>សំណើប្រុស (Male)</h3><p class="value" id="stat-male">0</p></div>
             </div>
 
-            <h3 style="margin-bottom: 15px;">ប្រវត្តិសុំច្បាប់ (All Records)</h3>
+            <div class="filter-container">
+                <div class="filter-box" style="flex: 1.5;">
+                    <label>🔍 ស្វែងរកតាមឈ្មោះ</label>
+                    <input type="text" id="search-name" class="form-control" placeholder="វាយឈ្មោះនៅទីនេះ..." oninput="renderDashboardTable()">
+                </div>
+                <div class="filter-box">
+                    <label>📅 ចាប់ពីថ្ងៃ</label>
+                    <input type="date" id="filter-start" class="form-control" onchange="renderDashboardTable()">
+                </div>
+                <div class="filter-box">
+                    <label>📅 ដល់ថ្ងៃ</label>
+                    <input type="date" id="filter-end" class="form-control" onchange="renderDashboardTable()">
+                </div>
+                <div>
+                    <button class="btn-cancel" onclick="clearFilters()" style="height: 42px; margin-bottom: 1px;">🔄 សម្អាត</button>
+                </div>
+            </div>
+
+            <h3 style="margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center;">
+                <span>ប្រវត្តិសុំច្បាប់ (All Records)</span>
+            </h3>
             <div class="table-container">
                 <table>
                     <thead>
@@ -365,6 +406,14 @@
                 root.style.setProperty('--text-muted', '#94a3b8'); 
             }
         }
+        
+        // សម្អាត Filter
+        function clearFilters() {
+            document.getElementById('search-name').value = '';
+            document.getElementById('filter-start').value = '';
+            document.getElementById('filter-end').value = '';
+            if (window.renderDashboardTable) window.renderDashboardTable();
+        }
     </script>
 
     <script type="module">
@@ -387,93 +436,183 @@
 
         window.allRecordsMap = {}; 
         window.globalApprovedRequests = []; 
+        window.allRequestsData = []; // ស្តុកទុក Data ទាំងអស់សម្រាប់មុខងារ Filter
+        window.userLeaveCounts = {}; // ស្តុករាប់ចំនួនច្បាប់របស់អ្នកម្នាក់ៗ
 
         const requestsRef = collection(db, "leave_requests");
         const q = query(requestsRef, where("department", "==", "DI-Support"));
 
         onSnapshot(q, (snapshot) => {
-            const dashboardTbody = document.getElementById('dashboard-table-body');
-            const requestsTbody = document.getElementById('requests-table-body');
-            const pendingBadge = document.getElementById('pending-badge');
-            
-            dashboardTbody.innerHTML = ''; 
-            requestsTbody.innerHTML = '';
             window.allRecordsMap = {};
             window.globalApprovedRequests = []; 
+            window.allRequestsData = [];
+            window.userLeaveCounts = {};
             
-            let countTotal = 0, countApproved = 0, countFemale = 0, countMale = 0, countPending = 0;
+            let countTotal = 0, countApproved = 0, countFemale = 0, countMale = 0;
 
+            // ជុំទី១៖ ប្រមូលទិន្នន័យ និងរាប់ចំនួនច្បាប់ដែលបានអនុម័ត (ដើម្បីលោតសញ្ញាព្រមាន)
             snapshot.forEach((docSnap) => {
                 const data = docSnap.data();
-                const id = docSnap.id;
+                if (data.status === 'approved' && data.name) {
+                    window.userLeaveCounts[data.name] = (window.userLeaveCounts[data.name] || 0) + 1;
+                }
+            });
+
+            // ជុំទី២៖ រៀបចំទិន្នន័យទាំងអស់បញ្ចូលក្នុង Array
+            snapshot.forEach((docSnap) => {
+                const data = docSnap.data();
+                data.id = docSnap.id;
                 
                 // ===== បំប្លែងម៉ោង (Date & Time Formatting) =====
                 let formattedDate = 'មិនមានទិន្នន័យ';
+                let parsedDate = null; // ទុកសម្រាប់ Filter
+                
                 if (data.timestamp) {
                     let d = data.timestamp.toDate ? data.timestamp.toDate() : new Date(data.timestamp);
                     if (!isNaN(d)) {
-                        // ទម្រង់: DD/MM/YYYY HH:MM AM/PM
+                        parsedDate = d;
                         const datePart = d.toLocaleDateString('en-GB');
                         const timePart = d.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
                         formattedDate = `${datePart} <br><small style="color:var(--text-muted);">${timePart}</small>`;
-                        
-                        // រក្សាទុកម៉ោងស្អាតចូលក្នុង data សម្រាប់ប្រើក្នុង PDF
                         data.displayDate = `${datePart} ${timePart}`; 
                     } else {
-                        formattedDate = data.timestamp; // បើ error បង្ហាញ string ដើម
+                        formattedDate = data.timestamp;
                         data.displayDate = data.timestamp;
                     }
                 }
-                // ===============================================
+                data.formattedDateHTML = formattedDate;
+                data.parsedDate = parsedDate;
 
-                window.allRecordsMap[id] = data;
+                window.allRequestsData.push(data);
+                window.allRecordsMap[data.id] = data;
                 
+                // គណនាស្ថិតិ
                 countTotal++;
                 if (data.gender === 'ស្រី') countFemale++;
                 if (data.gender === 'ប្រុស') countMale++;
-
-                // -- តារាង Dashboard --
-                let statusClass = data.status === 'approved' ? 'approved' : (data.status === 'rejected' ? 'rejected' : 'pending');
-                const trDash = document.createElement('tr');
-                trDash.innerHTML = `
-                    <td><b>${data.name || 'N/A'}</b> <br><small style="color:var(--text-muted);">${data.grade || ''}</small></td>
-                    <td>${data.gender || ''}</td>
-                    <td>${data.leaveType || ''}</td>
-                    <td>${data.reason || ''}</td>
-                    <td>${formattedDate}</td> <td>${data.duration || ''}</td>
-                    <td><span class="status ${statusClass}">${data.status || 'pending'}</span></td>
-                    <td>
-                        <button class="action-btn btn-edit" onclick="openEditModal('${id}')">កែប្រែ</button>
-                        <button class="action-btn btn-delete" onclick="openDeleteModal('${id}')">លុប</button>
-                    </td>
-                `;
-                dashboardTbody.appendChild(trDash);
-
                 if (data.status === 'approved') {
                     countApproved++;
                     window.globalApprovedRequests.push(data);
-                } else if (!data.status || data.status === 'pending') {
+                }
+            });
+
+            // Update Stats Cards
+            document.getElementById('stat-total').innerText = countTotal;
+            document.getElementById('stat-approved').innerText = countApproved;
+            document.getElementById('stat-female').innerText = countFemale;
+            document.getElementById('stat-male').innerText = countMale;
+
+            // ហៅអនុគមន៍បង្ហាញតារាង (វានឹង Filter ស្វ័យប្រវត្តិ)
+            window.renderDashboardTable();
+            renderPendingRequestsTable();
+        });
+
+        // ================= អនុគមន៍សម្រាប់បង្ហាញ និង Filter តារាង =================
+        window.renderDashboardTable = function() {
+            const tbody = document.getElementById('dashboard-table-body');
+            tbody.innerHTML = '';
+
+            const searchName = document.getElementById('search-name').value.toLowerCase().trim();
+            const startStr = document.getElementById('filter-start').value;
+            const endStr = document.getElementById('filter-end').value;
+
+            // ត្រងទិន្នន័យ (Filtering)
+            let filteredData = window.allRequestsData.filter(item => {
+                let matchName = true;
+                let matchStart = true;
+                let matchEnd = true;
+
+                // ពិនិត្យឈ្មោះ
+                if (searchName) {
+                    matchName = (item.name || '').toLowerCase().includes(searchName);
+                }
+
+                // ពិនិត្យថ្ងៃចាប់ផ្តើម
+                if (startStr && item.parsedDate) {
+                    const startDate = new Date(startStr);
+                    startDate.setHours(0, 0, 0, 0);
+                    matchStart = item.parsedDate >= startDate;
+                }
+
+                // ពិនិត្យថ្ងៃបញ្ចប់
+                if (endStr && item.parsedDate) {
+                    const endDate = new Date(endStr);
+                    endDate.setHours(23, 59, 59, 999);
+                    matchEnd = item.parsedDate <= endDate;
+                }
+
+                return matchName && matchStart && matchEnd;
+            });
+
+            // ប្រសិនបើគ្មានទិន្នន័យ
+            if (filteredData.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; padding: 30px;">គ្មានទិន្នន័យដែលអ្នកស្វែងរកទេ 🔍</td></tr>';
+                return;
+            }
+
+            // បង្ហាញទិន្នន័យទៅក្នុងតារាង
+            filteredData.forEach(data => {
+                let statusClass = data.status === 'approved' ? 'approved' : (data.status === 'rejected' ? 'rejected' : 'pending');
+                
+                // លក្ខខណ្ឌលោតសញ្ញាព្រមាន (Badge 3 ដងឡើង)
+                let warningBadge = '';
+                let userCount = window.userLeaveCounts[data.name] || 0;
+                if (userCount >= 3) {
+                    warningBadge = `<span class="warning-badge" title="បុគ្គលិកនេះធ្លាប់សុំច្បាប់ ${userCount} ដងហើយ">⚠️ ${userCount} ដង+</span>`;
+                }
+
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>
+                        <b>${data.name || 'N/A'}</b> ${warningBadge}
+                        <br><small style="color:var(--text-muted);">${data.grade || ''}</small>
+                    </td>
+                    <td>${data.gender || ''}</td>
+                    <td>${data.leaveType || ''}</td>
+                    <td>${data.reason || ''}</td>
+                    <td>${data.formattedDateHTML}</td> <td>${data.duration || ''}</td>
+                    <td><span class="status ${statusClass}">${data.status || 'pending'}</span></td>
+                    <td>
+                        <button class="action-btn btn-edit" onclick="openEditModal('${data.id}')">កែប្រែ</button>
+                        <button class="action-btn btn-delete" onclick="openDeleteModal('${data.id}')">លុប</button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        };
+
+        // អនុគមន៍បង្ហាញតារាងសំណើថ្មីៗ (Pending)
+        function renderPendingRequestsTable() {
+            const requestsTbody = document.getElementById('requests-table-body');
+            const pendingBadge = document.getElementById('pending-badge');
+            requestsTbody.innerHTML = '';
+            let countPending = 0;
+
+            window.allRequestsData.forEach(data => {
+                if (!data.status || data.status === 'pending') {
                     countPending++;
                     const trReq = document.createElement('tr');
+                    
+                    let warningBadge = '';
+                    let userCount = window.userLeaveCounts[data.name] || 0;
+                    if (userCount >= 3) {
+                        warningBadge = `<span class="warning-badge" title="បុគ្គលិកនេះធ្លាប់សុំច្បាប់ ${userCount} ដងហើយ">⚠️ ${userCount} ដង+</span>`;
+                    }
+
                     trReq.innerHTML = `
-                        <td><b>${data.name || 'N/A'}</b> <br><small style="color:var(--text-muted);">${data.grade || ''}</small></td>
+                        <td><b>${data.name || 'N/A'}</b> ${warningBadge}<br><small style="color:var(--text-muted);">${data.grade || ''}</small></td>
                         <td>${data.leaveType || ''}</td>
                         <td>${data.reason || ''}</td>
-                        <td>${formattedDate}</td> <td>${data.duration || ''}</td>
+                        <td>${data.formattedDateHTML}</td> <td>${data.duration || ''}</td>
                         <td>
-                            <button class="action-btn btn-approve" onclick="updateReqStatus('${id}', 'approved')">អនុម័ត</button>
-                            <button class="action-btn btn-reject" onclick="updateReqStatus('${id}', 'rejected')">បដិសេធ</button>
+                            <button class="action-btn btn-approve" onclick="updateReqStatus('${data.id}', 'approved')">អនុម័ត</button>
+                            <button class="action-btn btn-reject" onclick="updateReqStatus('${data.id}', 'rejected')">បដិសេធ</button>
                         </td>
                     `;
                     requestsTbody.appendChild(trReq);
                 }
             });
 
-            document.getElementById('stat-total').innerText = countTotal;
-            document.getElementById('stat-approved').innerText = countApproved;
-            document.getElementById('stat-female').innerText = countFemale;
-            document.getElementById('stat-male').innerText = countMale;
-            
             if(countPending > 0) {
                 pendingBadge.style.display = 'inline-block';
                 pendingBadge.innerText = countPending;
@@ -481,10 +620,9 @@
                 pendingBadge.style.display = 'none';
                 requestsTbody.innerHTML = '<tr><td colspan="6" style="text-align:center; padding: 30px;">មិនមានសំណើថ្មីរង់ចាំការអនុម័តទេ 🎉</td></tr>';
             }
+        }
 
-            if (countTotal === 0) dashboardTbody.innerHTML = '<tr><td colspan="8" style="text-align:center;">មិនមានទិន្នន័យទេ</td></tr>';
-        });
-
+        // Action Functions
         window.updateReqStatus = async function(id, newStatus) {
             if (confirm(`តើអ្នកពិតជាចង់ ${newStatus === 'approved' ? 'អនុម័ត' : 'បដិសេធ'} សំណើនេះមែនទេ?`)) {
                 try {
@@ -496,7 +634,6 @@
         window.openEditModal = function(id) {
             const data = window.allRecordsMap[id];
             if(!data) return;
-            
             document.getElementById('edit-id').value = id;
             document.getElementById('edit-name').value = data.name || '';
             document.getElementById('edit-gender').value = data.gender || 'ស្រី';
@@ -506,7 +643,6 @@
             document.getElementById('edit-duration').value = data.duration || '';
             document.getElementById('edit-reason').value = data.reason || '';
             document.getElementById('edit-status').value = data.status || 'pending';
-
             document.getElementById('editModal').classList.add('active');
         };
 
@@ -524,7 +660,6 @@
                 reason: document.getElementById('edit-reason').value,
                 status: document.getElementById('edit-status').value
             };
-
             try {
                 await updateDoc(doc(db, "leave_requests", id), updatedData);
                 closeEditModal();
@@ -541,11 +676,64 @@
             }
         };
 
-       // ================= មុខងារ Export PDF =================
-       window.exportOfficialPDF = function() {
-        if (window.globalApprovedRequests.length === 0) {
-            alert("មិនមានទិន្នន័យដែលបានអនុម័ត (Approved) សម្រាប់ធ្វើរបាយការណ៍ទេ!");
+    // ================= មុខងារ Export PDF (Update ថ្មី) =================
+    window.exportOfficialPDF = function() {
+        
+        // ១. ចាប់យកតម្លៃដែលអ្នកប្រើប្រាស់កំពុង Filter លើអេក្រង់
+        const searchName = document.getElementById('search-name').value.toLowerCase().trim();
+        const startStr = document.getElementById('filter-start').value;
+        const endStr = document.getElementById('filter-end').value;
+
+        // ២. ត្រងយកតែទិន្នន័យ "អនុម័ត (Approved)" និងត្រូវតាមថ្ងៃ/ឈ្មោះដែលបានរើស
+        let dataToExport = window.allRequestsData.filter(item => {
+            if (item.status !== 'approved') return false; // យកតែអ្នក Approved
+
+            let matchName = true;
+            let matchStart = true;
+            let matchEnd = true;
+
+            if (searchName) {
+                matchName = (item.name || '').toLowerCase().includes(searchName);
+            }
+            if (startStr && item.parsedDate) {
+                const startDate = new Date(startStr);
+                startDate.setHours(0, 0, 0, 0);
+                matchStart = item.parsedDate >= startDate;
+            }
+            if (endStr && item.parsedDate) {
+                const endDate = new Date(endStr);
+                endDate.setHours(23, 59, 59, 999);
+                matchEnd = item.parsedDate <= endDate;
+            }
+
+            return matchName && matchStart && matchEnd;
+        });
+
+        // ៣. តម្រៀបទិន្នន័យតាមឈ្មោះ (ដើម្បីអោយឈ្មោះដូចគ្នានៅជិតគ្នា)
+        dataToExport.sort((a, b) => {
+            let nameA = (a.name || '').toLowerCase();
+            let nameB = (b.name || '').toLowerCase();
+            if (nameA < nameB) return -1;
+            if (nameA > nameB) return 1;
+            
+            // បើឈ្មោះដូចគ្នា តម្រៀបតាមថ្ងៃខែបន្ត
+            let dateA = a.parsedDate || new Date(0);
+            let dateB = b.parsedDate || new Date(0);
+            return dateA - dateB;
+        });
+
+        // បើគ្មានទិន្នន័យក្រោយត្រងរួច
+        if (dataToExport.length === 0) {
+            alert("មិនមានទិន្នន័យដែលបានអនុម័ត (Approved) ក្នុងចន្លោះពេលនេះសម្រាប់ធ្វើរបាយការណ៍ទេ!");
             return;
+        }
+
+        // រៀបចំអត្ថបទបង្ហាញថ្ងៃខែនៅលើ PDF
+        let dateRangeText = "ទាំងអស់";
+        if (startStr || endStr) {
+            let s = startStr ? new Date(startStr).toLocaleDateString('en-GB') : "ដើមទី";
+            let e = endStr ? new Date(endStr).toLocaleDateString('en-GB') : "បច្ចុប្បន្ន";
+            dateRangeText = `ពីថ្ងៃ ${s} ដល់ ${e}`;
         }
 
         const pdfContent = document.createElement('div');
@@ -555,39 +743,46 @@
         pdfContent.style.backgroundColor = '#fff';
 
         let htmlString = `
-            <div style="text-align: center; margin-bottom: 30px; line-height: 1.5;">
+            <div style="text-align: center; margin-bottom: 25px; line-height: 1.5;">
                 <h2 style="margin: 0; font-family: 'Moul', 'Battambang', serif; font-size: 22px; font-weight: normal;">ព្រះរាជាណាចក្រកម្ពុជា</h2>
                 <h3 style="margin: 0; font-size: 16px; font-weight: normal;">ជាតិ សាសនា ព្រះមហាក្សត្រ</h3>
                 <div style="font-size: 20px; margin-top: -5px;">🙡🙣 ✤ 🙢🙠</div>
             </div>
 
-            <div style="margin-bottom: 30px; font-size: 14px;">
-                <p style="margin: 5px 0;"><b>ផ្នែក៖</b> DI-Support</p>
-                <p style="margin: 5px 0;"><b>កាលបរិច្ឆេទរបាយការណ៍៖</b> ${new Date().toLocaleDateString('en-GB')}</p>
+            <div style="margin-bottom: 25px; font-size: 13px; display: flex; justify-content: space-between;">
+                <div>
+                    <p style="margin: 5px 0;"><b>ផ្នែក៖</b> DI-Support</p>
+                    <p style="margin: 5px 0;"><b>កាលបរិច្ឆេទរបាយការណ៍៖</b> ${new Date().toLocaleDateString('en-GB')}</p>
+                </div>
+                <div style="text-align: right;">
+                    <p style="margin: 5px 0;"><b>ទិន្នន័យ៖</b> ${dateRangeText}</p>
+                </div>
             </div>
 
-            <h3 style="text-align: center; margin-bottom: 25px; font-size: 18px; font-family: 'Moul', 'Battambang', serif; font-weight: normal;">របាយការណ៍សុំច្បាប់ផ្លូវការ</h3>
+            <h3 style="text-align: center; margin-bottom: 20px; font-size: 18px; font-family: 'Moul', 'Battambang', serif; font-weight: normal;">របាយការណ៍សុំច្បាប់ផ្លូវការ</h3>
 
-            <table style="width: 100%; border-collapse: collapse; margin-bottom: 40px; font-size: 12px;">
+            <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 12px;">
                 <thead>
                     <tr style="background-color: #f8fafc; text-align: left; border-bottom: 2px solid #334155;">
-                        <th style="padding: 10px; border: 1px solid #cbd5e1; text-align: center; color: #0f172a; font-weight: bold;">ល.រ</th>
-                        <th style="padding: 10px; border: 1px solid #cbd5e1; color: #0f172a; font-weight: bold;">ឈ្មោះបុគ្គលិក</th>
-                        <th style="padding: 10px; border: 1px solid #cbd5e1; color: #0f172a; font-weight: bold;">ភេទ</th> <th style="padding: 10px; border: 1px solid #cbd5e1; color: #0f172a; font-weight: bold;">កាលបរិច្ឆេទសុំ</th>
-                        <th style="padding: 10px; border: 1px solid #cbd5e1; color: #0f172a; font-weight: bold;">ប្រភេទច្បាប់</th>
-                        <th style="padding: 10px; border: 1px solid #cbd5e1; color: #0f172a; font-weight: bold;">រយៈពេល</th>
-                        <th style="padding: 10px; border: 1px solid #cbd5e1; color: #0f172a; font-weight: bold;">មូលហេតុ</th>
+                        <th style="padding: 10px; border: 1px solid #cbd5e1; text-align: center; color: #0f172a; font-weight: bold; width: 5%;">ល.រ</th>
+                        <th style="padding: 10px; border: 1px solid #cbd5e1; color: #0f172a; font-weight: bold; width: 25%;">ឈ្មោះបុគ្គលិក</th>
+                        <th style="padding: 10px; border: 1px solid #cbd5e1; text-align: center; color: #0f172a; font-weight: bold; width: 8%;">ភេទ</th> 
+                        <th style="padding: 10px; border: 1px solid #cbd5e1; color: #0f172a; font-weight: bold; width: 17%;">កាលបរិច្ឆេទសុំ</th>
+                        <th style="padding: 10px; border: 1px solid #cbd5e1; color: #0f172a; font-weight: bold; width: 15%;">ប្រភេទច្បាប់</th>
+                        <th style="padding: 10px; border: 1px solid #cbd5e1; color: #0f172a; font-weight: bold; width: 10%;">រយៈពេល</th>
+                        <th style="padding: 10px; border: 1px solid #cbd5e1; color: #0f172a; font-weight: bold; width: 20%;">មូលហេតុ</th>
                     </tr>
                 </thead>
                 <tbody>
         `;
 
-        window.globalApprovedRequests.forEach((req, index) => {
+        dataToExport.forEach((req, index) => {
             htmlString += `
                 <tr>
                     <td style="padding: 8px; border: 1px solid #cbd5e1; text-align: center;">${index + 1}</td>
                     <td style="padding: 8px; border: 1px solid #cbd5e1; font-weight: bold;">${req.name || ''} <br><span style="font-weight:normal; font-size:10px; color:#64748b;">${req.grade || ''} / ${req.generation || ''}</span></td>
-                    <td style="padding: 8px; border: 1px solid #cbd5e1; text-align: center;">${req.gender || ''}</td> <td style="padding: 8px; border: 1px solid #cbd5e1;">${req.displayDate || ''}</td>
+                    <td style="padding: 8px; border: 1px solid #cbd5e1; text-align: center;">${req.gender || ''}</td> 
+                    <td style="padding: 8px; border: 1px solid #cbd5e1;">${req.displayDate || ''}</td>
                     <td style="padding: 8px; border: 1px solid #cbd5e1;">${req.leaveType || ''}</td>
                     <td style="padding: 8px; border: 1px solid #cbd5e1;">${req.duration || ''}</td>
                     <td style="padding: 8px; border: 1px solid #cbd5e1;">${req.reason || ''}</td>
@@ -595,7 +790,17 @@
             `;
         });
 
-        htmlString += `</tbody></table>`;
+        // ៤. បន្ថែមជួរបូកសរុបខាងចុងតារាង
+        htmlString += `
+                </tbody>
+                <tfoot>
+                    <tr style="background-color: #f1f5f9;">
+                        <td colspan="5" style="padding: 10px; border: 1px solid #cbd5e1; text-align: right; font-weight: bold; color: #0f172a;">សរុបចំនួនច្បាប់ដែលបានអនុម័ត៖</td>
+                        <td colspan="2" style="padding: 10px; border: 1px solid #cbd5e1; text-align: center; font-weight: bold; color: #dc2626; font-size: 14px;">${dataToExport.length} ច្បាប់</td>
+                    </tr>
+                </tfoot>
+            </table>
+        `;
 
         pdfContent.innerHTML = htmlString;
 
@@ -604,7 +809,6 @@
             filename:     `របាយការណ៍_DI_Support_${new Date().toISOString().split('T')[0]}.pdf`,
             image:        { type: 'jpeg', quality: 0.98 },
             html2canvas:  { scale: 2, useCORS: true },
-            // ប្តូរពី 'landscape' មក 'portrait' វិញ ដើម្បីអោយចេញជាក្រដាស A4 បញ្ឈរធម្មតា
             jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' } 
         };
 
